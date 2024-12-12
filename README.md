@@ -49,3 +49,5 @@ project-name/
 │
 ├── requirements.txt            # Python dependencies for the backend and frontend
 └── .gitignore                  # Files and directories to ignore in version control
+
+(This readme is subject to change)
