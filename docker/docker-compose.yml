@@ -1,0 +1,16 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./server
+    container_name: server
+    networks:
+      - monitoring-network
+    volumes:
+      - ./server/zabbix_agent_config.conf:/etc/zabbix/zabbix_agentd.conf
+    ports:
+      - "10050:10050"
+
+networks:
+  monitoring-network:
+    driver: bridge
