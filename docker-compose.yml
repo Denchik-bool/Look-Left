@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:latest
+    environment:
+      DB_SERVER_HOST: mysql-server
+      MYSQL_USER: zabbix
+      MYSQL_PASSWORD: zabbix_pass
+      MYSQL_DATABASE: zabbix
+    depends_on:
+      - mysql-server
+    ports:
+      - "10051:10051"
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:latest
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+    depends_on:
+      - zabbix-server
+    ports:
+      - "8080:8080"
+
+  mysql-server:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: zabbix
+      MYSQL_USER: zabbix
+      MYSQL_PASSWORD: zabbix_pass
+    ports:
+      - "3306:3306"
