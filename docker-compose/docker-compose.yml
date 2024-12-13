@@ -25,3 +25,24 @@ services:
     image: mysql:lts
     environment:
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+
+  linux-server:
+    build:
+      context: ../linux-server
+    container_name: linux-server
+    ports:
+      - "8081:8081"
+
+  python-app:
+    build:
+      context: ../python-app
+    container_name: python-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - zabbix
+      - zabbix-web
+      - db
+      - linux-server
