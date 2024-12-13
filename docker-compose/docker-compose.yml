@@ -1,0 +1,27 @@
+services:
+  zabbix:
+    image: zabbix/zabbix-server-mysql:ubuntu-latest
+    environment:
+      DB_SERVER_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    depends_on:
+      - db
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:ubuntu-latest
+    environment:
+      DB_SERVER_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      ZBX_SERVER_HOST: zabbix
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+      - zabbix
+
+  db:
+    image: mysql:lts
+    environment:
+      MYSQL_ROOT_PASSWORD: root
