@@ -5,6 +5,6 @@ This project is a real-time dashboard for visualizing server metrics, including 
 ## Subject
 
 **❖Descrição:** Desenvolver um painel interativo que mostre métricas de servidores simulados, como 
-uptime, carga de CPU e utilização de memória.
-**❖Objetivo:** Trabalhar com coleta e visualização de dados.
-**❖Tecnologias:** Python, Containers, Zabbix.
+uptime, carga de CPU e utilização de memória.<br>
+**❖Objetivo:** Trabalhar com coleta e visualização de dados.<br>
+**❖Tecnologias:** Python, Containers, Zabbix.<br>
