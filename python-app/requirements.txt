@@ -1,3 +1,4 @@
 zabbix-api
 flask
 psutil
+py-zabbix

@@ -32,8 +32,6 @@ services:
     build:
       context: ../linux-server
     container_name: linux-server
-    ports:
-      - "8081:8081"
 
   python-app:
     build:

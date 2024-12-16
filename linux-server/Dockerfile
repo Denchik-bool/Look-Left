@@ -6,5 +6,8 @@ RUN apt-get update && apt-get install -y \
     sysstat \
     && rm -rf /var/lib/apt/lists/*
 
-# Start the sysstat service
-CMD ["sar", "-u", "1", "3"]
+# Enable sysstat
+RUN sed -i 's/ENABLED="false"/ENABLED="true"/' /etc/default/sysstat
+
+# Start sysstat service and keep the container running
+CMD ["sh", "-c", "service sysstat start && tail -f /dev/null"]
