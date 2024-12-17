@@ -17,17 +17,23 @@ def collect_and_send_metrics():
     
     # Get server name
     server_name = socket.gethostname()
+
+    # Get network traffic
+    net_io = psutil.net_io_counters()
+    bytes_sent = net_io.bytes_sent
+    bytes_recv = net_io.bytes_recv
     
     # Get uptime
     boot_time = psutil.boot_time()
-    uptime_seconds = time.time() - boot_time
-    uptime = time.strftime("%H:%M:%S", time.gmtime(uptime_seconds))
+    uptime_seconds = int(time.time() - boot_time)
     
     metrics = {
         "server_name": server_name,
         "cpu_usage": cpu_usage,
         "memory_usage": memory_usage,
-        "uptime": uptime
+        "uptime": uptime_seconds,
+        "bytes_sent": bytes_sent,
+        "bytes_recv": bytes_recv
     }
     
     # Send metrics to Zabbix using zabbix-sender
@@ -45,6 +51,16 @@ def collect_and_send_metrics():
         )
         subprocess.run(
             f'zabbix_sender -z {zabbix_server} -s {server_name} -k uptime -o {uptime_seconds}',
+            shell=True,
+            check=True
+        )
+        subprocess.run(
+            f'zabbix_sender -z {zabbix_server} -s {server_name} -k net.bytes_recv -o {bytes_recv}',
+            shell=True,
+            check=True
+        )
+        subprocess.run(
+            f'zabbix_sender -z {zabbix_server} -s {server_name} -k net.bytes_sent -o {bytes_sent}',
             shell=True,
             check=True
         )
